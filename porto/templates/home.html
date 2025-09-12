@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<!-- Hero Section with Typing Effect -->
+    <section id="home" class="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-500 to-purple-600 text-white">
+        <div class="text-center max-w-3xl mx-auto px-4">
+            <h1 id="hero-title" class="text-5xl font-extrabold mb-4"></h1>
+            <p id="hero-subtitle" class="text-xl mb-6"></p>
+            <a href="#contact" class="inline-block bg-white text-blue-600 font-semibold py-3 px-6 rounded-lg shadow-md hover:bg-blue-100 transition duration-300 transform hover:scale-105">Me contacter</a>
+        </div>
+    </section>
+
+    <section id="about" class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-4xl font-bold text-center text-gray-800 mb-12">À propos de moi</h2>
+        <div class="flex flex-col md:flex-row items-center md:items-start gap-8">
+            <div class="flex-shrink-0">
+                <img class="h-48 w-48 rounded-full object-cover shadow-lg"
+                     src="{{ profile.photo.url }}" alt="{{ profile.name }}">
+            </div>
+            <div class="text-center md:text-left">
+                <h3 class="text-2xl font-semibold text-gray-800 mb-4">{{ profile.name }}</h3>
+                <p class="text-gray-600 mb-4">{{ profile.title }}</p>
+                <p class="text-gray-600 mb-6">{{ profile.bio }}</p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div><p class="font-semibold">Email :</p> <p>{{ profile.email }}</p></div>
+                    <div><p class="font-semibold">Téléphone :</p> <p>{{ profile.phone }}</p></div>
+                    <div><p class="font-semibold">Localisation :</p> <p>{{ profile.location }}</p></div>
+                    <div><p class="font-semibold">LinkedIn :</p> <a href="{{ profile.linkedin }}" class="text-blue-600">{{ profile.linkedin }}</a></div>
+                    <div><p class="font-semibold">Âge :</p> <p>{{ profile.age }} ans</p></div>
+                    <div><p class="font-semibold">Études :</p> <p>{{ profile.degree }}</p></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+    <section id="skills" class="py-20 bg-gray-100">
+    <div class="max-w-7xl mx-auto px-4">
+        <h2 class="text-4xl font-bold text-center mb-12">Mes Compétences</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {% for skill in skills %}
+                <div class="bg-gray-50 p-6 rounded-lg shadow-md hover:shadow-xl transition transform hover:-translate-y-2">
+                    <i class="fas {{ skill.icon }} text-4xl text-blue-600 mb-4"></i>
+                    <h3 class="text-xl font-semibold">{{ skill.name }}</h3>
+                    <p class="text-gray-600 mt-2">{{ skill.description }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+
+      <!-- Projects Section -->
+    <div class="p-6">
+    <h3 class="text-xl font-semibold">
+        <a href="{% url 'project_detail' %}" class="hover:text-blue-600">
+            {{ project.title }}
+        </a>
+    </h3>
+    <p class="text-gray-600 mt-2">{{ project.description|truncatewords:20 }}</p>
+    <!-- {% if project.slug %}
+    <a href="{% url 'project_detail' project.slug %}" class="text-blue-600 hover:underline mt-4 inline-block">Voir plus</a>
+{% else %}
+    <span class="text-gray-400 mt-4 inline-block">Lien indisponible</span>
+{% endif %} -->
+
+</div>
+
+
+      <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-gray-100">
+    <div class="max-w-7xl mx-auto px-4">
+        <h2 class="text-4xl font-bold text-center mb-12">Me Contacter</h2>
+        <form method="POST" class="max-w-lg mx-auto space-y-6">
+            {% csrf_token %}
+            <div>
+                <label class="block font-semibold">Nom</label>
+                <input type="text" name="name" class="w-full border rounded-md p-3">
+            </div>
+            <div>
+                <label class="block font-semibold">Email</label>
+                <input type="email" name="email" class="w-full border rounded-md p-3">
+            </div>
+            <div>
+                <label class="block font-semibold">Message</label>
+                <textarea name="message" rows="5" class="w-full border rounded-md p-3"></textarea>
+            </div>
+            <button type="submit" class="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700">Envoyer</button>
+        </form>
+    </div>
+</section>
+
+
+
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold mb-8 text-center">Témoignages</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {% for t in testimonials %}
+                <div class="bg-gray-50 p-6 rounded-lg shadow-md">
+                    {% if t.photo %}
+                        <img src="{{ t.photo.url }}" alt="{{ t.name }}" class="w-16 h-16 rounded-full mx-auto mb-4">
+                    {% endif %}
+                    <p class="text-gray-600 mb-4">"{{ t.message }}"</p>
+                    <h4 class="text-lg font-semibold">{{ t.name }}</h4>
+                    <p class="text-gray-500">{{ t.role }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{% endblock %}

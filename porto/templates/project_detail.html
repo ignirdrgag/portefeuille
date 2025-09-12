@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="py-20 bg-gray-100">
+    <div class="max-w-5xl mx-auto px-4">
+        <div class="bg-white rounded-lg shadow-lg p-8">
+            {% if project.image %}
+                <img src="{{ project.image.url }}" alt="{{ project.title }}" class="w-full h-64 object-cover rounded-lg mb-6">
+            {% endif %}
+
+            <h1 class="text-3xl font-bold text-gray-800 mb-4">{{ project.title }}</h1>
+
+            {% if project.technologies %}
+                <p class="text-sm text-gray-500 mb-4">Technologies : {{ project.technologies }}</p>
+            {% endif %}
+
+            <p class="text-gray-700 mb-6">{{ project.long_description|default:project.description }}</p>
+
+            <div class="flex gap-4">
+                {% if project.github_link %}
+                    <a href="{{ project.github_link }}" target="_blank" class="px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-900">Code source</a>
+                {% endif %}
+                {% if project.demo_link %}
+                    <a href="{{ project.demo_link }}" target="_blank" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Voir la démo</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mon Portfolio Professionnel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 font-sans">
+    <!-- Navbar -->
+    <nav class="bg-gray-800 shadow-lg fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    
+
+           
+    <img src="{{ profile.photo.url }}" alt="profile-upload" class="h-8 w-8 rounded-full object-cover shadow-lg" \>
+
+
+
+                <div class="flex items-center space-x-4">
+                    <a href="#home" class="text-white hover:text-blue-600 transition duration-300">Accueil</a>
+                    <a href="#about" class="text-white hover:text-blue-600 transition duration-300">À propos</a>
+                    <a href="#skills" class="text-white hover:text-blue-600 transition duration-300">Compétences</a>
+                    <a href="#projects" class="text-white hover:text-blue-600 transition duration-300">Projets</a>
+                    <a href="#contact" class="text-white hover:text-blue-600 transition duration-300">Contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    
+
+   {% block content %}
+
+
+   {% endblock %}
+
+   
+
+   
+
+   
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-lg">© 2025 Votre Nom. Tous droits réservés.</p>
+            <div class="mt-4 flex justify-center space-x-4">
+                <a href="#" class="text-gray-400 hover:text-white transition duration-300"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="text-gray-400 hover:text-white transition duration-300"><i class="fab fa-linkedin"></i></a>
+                <a href="#" class="text-gray-400 hover:text-white transition duration-300"><i class="fab fa-github"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Custom Animations and Typing Effect -->
+    <style>
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in-down {
+            animation: fadeInDown 1s ease-out;
+        }
+        .animate-fade-in-up {
+            animation: fadeInUp 1s ease-out;
+        }
+        #hero-title::after {
+            content: '|';
+            animation: blink 0.7s infinite;
+        }
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+    </style>
+
+    <!-- JavaScript for Typing Effect and Profile Photo Upload -->
+    <script>
+        // Typing Effect for Hero Section
+        function typeText(element, text, speed, callback) {
+            let i = 0;
+            function type() {
+                if (i < text.length) {
+                    element.textContent += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                } else {
+                    element.classList.remove('typing');
+                    if (callback) callback();
+                }
+            }
+            element.classList.add('typing');
+            type();
+        }
+
+        const title = "Bienvenue sur mon Portfolio";
+        const subtitle = "Développeur passionné créant des solutions modernes et innovantes.";
+        const titleElement = document.getElementById('hero-title');
+        const subtitleElement = document.getElementById('hero-subtitle');
+
+        window.onload = function() {
+            typeText(titleElement, title, 100, function() {
+                typeText(subtitleElement, subtitle, 50);
+            });
+        };
+
+        // Profile Photo Upload for Navbar and About Section
+        document.getElementById('profile-upload')?.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('nav-profile-img').src = e.target.result;
+                    document.getElementById('about-profile-img').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+</body>
+</html>
