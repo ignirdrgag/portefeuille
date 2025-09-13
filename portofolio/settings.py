@@ -28,7 +28,7 @@ SECRET_KEY = config('SECRET_KEY', default="changememt")
 DEBUG = config('DEBUG')
 
 
-ALLOWED_HOSTS = config("ALLOWED_HOSTS", default="*").split(",")
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -53,6 +53,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 ROOT_URLCONF = 'portofolio.urls'
 
@@ -137,10 +139,10 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
-EMAIL_BACKEND = config("EMAIL_BACKEND")
-EMAIL_HOST = config("EMAIL_HOST")
-EMAIL_PORT = config("EMAIL_PORT")
-EMAIL_USE_TLS = config("EMAIL_USE_TLS")
-EMAIL_HOST_USER = config("EMAIL_HOST_USER")  # ton email (ex: noreply@tonsite.com)
-EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD")  # ton mot de passe ou App Password
-DEFAULT_FROM_EMAIL = config("DEFAULT_FROM_EMAIL")
+# EMAIL_BACKEND = config("EMAIL_BACKEND")
+# EMAIL_HOST = config("EMAIL_HOST")
+# EMAIL_PORT = config("EMAIL_PORT")
+# EMAIL_USE_TLS = config("EMAIL_USE_TLS")
+# EMAIL_HOST_USER = config("EMAIL_HOST_USER")  # ton email (ex: noreply@tonsite.com)
+# EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD")  # ton mot de passe ou App Password
+# DEFAULT_FROM_EMAIL = config("DEFAULT_FROM_EMAIL")
