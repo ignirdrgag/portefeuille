@@ -34,6 +34,15 @@
     
 
    {% block content %}
+   {% if messages %}
+    <div class="max-w-lg mx-auto my-4">
+        {% for message in messages %}
+        <div class="p-3 rounded-md {% if message.tags == 'success' %}bg-green-200{% else %}bg-red-200{% endif %}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+{% endif %}
 
 
    {% endblock %}

@@ -23,11 +23,12 @@ TEMPLATES_DIRS = os.path.join(BASE_DIR, 'templates')
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config('SECRET_KEY')
+SECRET_KEY = config('SECRET_KEY', default="changememt")
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = config('DEBUG')
 
-ALLOWED_HOSTS = ["*"]
+
+ALLOWED_HOSTS = config("ALLOWED_HOSTS", default="*").split(",")
 
 
 # Application definition
@@ -78,8 +79,17 @@ WSGI_APPLICATION = 'portofolio.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': dj_database_url.config(default="sqlite:///db.sqlite3")
-}
+        "default": dj_database_url.config(
+            default=config("DATABASE_URL")  # Render fournit DATABASE_URL
+        )
+    }
+
+# DATABASES = {
+#         "default": {
+#             "ENGINE": "django.db.backends.sqlite3",
+#             "NAME": BASE_DIR / "db.sqlite3",
+#         }
+#     }
 
 
 # Password validation
@@ -125,3 +135,12 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'stacticfiles')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+EMAIL_BACKEND = config("EMAIL_BACKEND")
+EMAIL_HOST = config("EMAIL_HOST")
+EMAIL_PORT = config("EMAIL_PORT")
+EMAIL_USE_TLS = config("EMAIL_USE_TLS")
+EMAIL_HOST_USER = config("EMAIL_HOST_USER")  # ton email (ex: noreply@tonsite.com)
+EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD")  # ton mot de passe ou App Password
+DEFAULT_FROM_EMAIL = config("DEFAULT_FROM_EMAIL")
